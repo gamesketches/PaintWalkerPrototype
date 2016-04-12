@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class CharacterMovement : MonoBehaviour {
 
@@ -9,8 +10,13 @@ public class CharacterMovement : MonoBehaviour {
 	public GameObject fogOfWar;
 	private Mesh fogOfWarMesh;
 	private Vector3 jumpVector;
+	public RawImage frame;
+	public RawImage titleScreen;
+	public RawImage titleScreenBackground;
+	public Camera otherCamera;
 	// Use this for initialization
 	void Start () {
+		otherCamera.enabled = false;
 		jumpVector = Vector3.zero;
 //		rb = GetComponent<Rigidbody>();
 		controller = GetComponent<CharacterController>();
@@ -21,23 +27,32 @@ public class CharacterMovement : MonoBehaviour {
 			colors[i] = meshColor;
 		}
 		fogOfWarMesh.colors = colors;
+		frame.enabled = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if(titleScreen.enabled && Input.GetAxis("Jump") != 0) {
+			titleScreen.enabled = false;
+			titleScreenBackground.enabled = false;
+			otherCamera.enabled = true;
+		}
 		float vertical = Input.GetAxis("Vertical");
 		Vector3 moveVector = (vertical * Camera.main.transform.forward * Time.deltaTime * 2f + Physics.gravity);
-		//Debug.Log(jumpVector);
 		controller.Move(moveVector + jumpVector);
 		if(Input.GetAxis("Horizontal") != 0) {
 			transform.Rotate(0f, Input.GetAxis("Horizontal") * Time.deltaTime * 100.0f, 0f);
 		}
-		if(Input.GetKeyDown(KeyCode.Space)) {
+		if(Input.GetKeyDown(KeyCode.Space) && controller.isGrounded) {
 			jumpVector.y = jumpSpeed;
-			//Debug.Log(jumpVector.y);
 		}
 		if(!controller.isGrounded) {
-			jumpVector.y -= 1f * Time.deltaTime;
+			if(Input.GetKey(KeyCode.Space) && jumpVector.y < Mathf.Abs(Physics.gravity.y)) {
+				jumpVector.y = 9.79f;
+			}
+			else {
+				jumpVector.y -= 1f * Time.deltaTime;
+			}
 		}
 
 		Ray theRay = new Ray(Camera.main.transform.position, Vector3.up * 100f);
@@ -58,5 +73,13 @@ public class CharacterMovement : MonoBehaviour {
 			Debug.Log(hitPoint);*/
 		}
 
+	}
+
+	public void EnableFrame(){
+		frame.enabled = true;
+	}
+
+	public void DisableFrame() {
+		frame.enabled = false;
 	}
 }
