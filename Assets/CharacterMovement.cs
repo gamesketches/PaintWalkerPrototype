@@ -33,8 +33,9 @@ public class CharacterMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(titleScreen.enabled && Input.GetAxis("Jump") != 0) {
-			titleScreen.enabled = false;
-			titleScreenBackground.enabled = false;
+			//titleScreen.enabled = false;
+			StartCoroutine(FadeOutTitleScreen());
+			//titleScreenBackground.enabled = false;
 			otherCamera.enabled = true;
 		}
 		float vertical = Input.GetAxis("Vertical");
@@ -73,6 +74,22 @@ public class CharacterMovement : MonoBehaviour {
 			Debug.Log(hitPoint);*/
 		}
 
+	}
+
+	IEnumerator FadeOutTitleScreen() {
+		float t = 0;
+		Color fadedColor1 = titleScreen.color;
+		Color fadedColor2 = titleScreenBackground.color;
+		Color startColor = titleScreen.color;
+		Color startColor2 = titleScreenBackground.color;
+		fadedColor1.a = 0;
+		fadedColor2.a = 0;
+		while(t < 1f) {
+			titleScreen.color = Color.Lerp(startColor, fadedColor1, t);
+			titleScreenBackground.color = Color.Lerp(startColor2, fadedColor2, t);
+			t += Time.deltaTime;
+			yield return null;
+		}
 	}
 
 	public void EnableFrame(){
