@@ -10,9 +10,7 @@ public class FogVoxel : MonoBehaviour {
 	
 	// Update is called once per frame
 	void OnTriggerEnter(Collider collider){
-		Debug.Log("Collision");
 		if(collider.gameObject.tag == "Fog") {
-			Debug.Log("should be destroyed");
 			Destroy(collider.gameObject);
 		}
 		else{

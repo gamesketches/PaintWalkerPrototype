@@ -8,7 +8,7 @@ public class CharacterMovement : MonoBehaviour {
 
 	public float jumpSpeed = 30.0f;
 	public GameObject fogOfWar;
-	private Mesh fogOfWarMesh;
+	//private Mesh fogOfWarMesh;
 	private Vector3 jumpVector;
 	public RawImage frame;
 	public RawImage titleScreen;
@@ -20,22 +20,21 @@ public class CharacterMovement : MonoBehaviour {
 		jumpVector = Vector3.zero;
 //		rb = GetComponent<Rigidbody>();
 		controller = GetComponent<CharacterController>();
-		Color meshColor = fogOfWar.GetComponent<Renderer>().material.color;
-		fogOfWarMesh = fogOfWar.GetComponent<MeshCollider>().sharedMesh;
-		Color[] colors = new Color[fogOfWarMesh.vertexCount];
-		for(int i = 0; i < fogOfWarMesh.vertexCount; i++) {
-			colors[i] = meshColor;
-		}
-		fogOfWarMesh.colors = colors;
+		//Color meshColor = fogOfWar.GetComponent<Renderer>().material.color;
+		//fogOfWarMesh = fogOfWar.GetComponent<MeshCollider>().sharedMesh;
+		//Color[] colors = new Color[fogOfWarMesh.vertexCount];
+		//for(int i = 0; i < fogOfWarMesh.vertexCount; i++) {
+		//	colors[i] = meshColor;
+		//}
+		//fogOfWarMesh.colors = colors;
 		frame.enabled = false;
+		Debug.Log(frame.enabled);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if(titleScreen.enabled && Input.GetAxis("Jump") != 0) {
-			//titleScreen.enabled = false;
 			StartCoroutine(FadeOutTitleScreen());
-			//titleScreenBackground.enabled = false;
 			otherCamera.enabled = true;
 		}
 		float vertical = Input.GetAxis("Vertical");
@@ -90,6 +89,8 @@ public class CharacterMovement : MonoBehaviour {
 			t += Time.deltaTime;
 			yield return null;
 		}
+		titleScreen.enabled = false;
+		titleScreenBackground.enabled = false;
 	}
 
 	public void EnableFrame(){
