@@ -93,11 +93,13 @@ public class CharacterMovement : MonoBehaviour {
 		titleScreenBackground.enabled = false;
 	}
 
-	public void EnableFrame(){
+	public void EnableFrame(string info){
 		frame.enabled = true;
+		frame.GetComponentInChildren<Text>().text = info;
 	}
 
 	public void DisableFrame() {
 		frame.enabled = false;
+		frame.GetComponentInChildren<Text>().text = "";
 	}
 }

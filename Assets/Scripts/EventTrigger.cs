@@ -9,10 +9,12 @@ public class EventTrigger : MonoBehaviour {
 
 	GameObject player;
 	GameObject playerCamera;
+	WaypointInfo info;
 
 	void Start(){
 		player = GameObject.FindWithTag("Player");
 		playerCamera = player.transform.FindChild("Main Camera").gameObject;
+		info = GetComponent<WaypointInfo>();
 	}
 
 	void CameraMoveUp(){
@@ -22,7 +24,7 @@ public class EventTrigger : MonoBehaviour {
 		playerCamera.RotateTo(rotateAngle,cameraRotateTime, 0, EaseType.easeInOutQuad);
 		playerCamera.MoveTo(player.transform.position, cameraRaiseTime, lastTime + cameraRaiseTime, EaseType.easeInOutQuad);
 		playerCamera.RotateTo(Vector3.zero,cameraRotateTime,lastTime + cameraRotateTime,EaseType.easeInOutQuad);
-		player.GetComponent<CharacterMovement>().EnableFrame();
+		player.GetComponent<CharacterMovement>().EnableFrame(info.getInfo());
 	}
 
 	void DeleteGameObject(){
