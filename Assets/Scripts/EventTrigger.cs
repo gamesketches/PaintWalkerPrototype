@@ -18,12 +18,12 @@ public class EventTrigger : MonoBehaviour {
 	}
 
 	void CameraMoveUp(){
-		Vector3 raisePos = player.transform.position + Vector3.up * 5;
-		Vector3 rotateAngle = new Vector3(90,0,0);
+		Vector3 raisePos = player.transform.position + Vector3.up * 30;
+		Vector3 rotateAngle = new Vector3(90,180,0);
 		playerCamera.MoveTo(raisePos, cameraRaiseTime, 0, EaseType.easeInOutQuad);
 		playerCamera.RotateTo(rotateAngle,cameraRotateTime, 0, EaseType.easeInOutQuad);
 		playerCamera.MoveTo(player.transform.position, cameraRaiseTime, lastTime + cameraRaiseTime, EaseType.easeInOutQuad);
-		playerCamera.RotateTo(Vector3.zero,cameraRotateTime,lastTime + cameraRotateTime,EaseType.easeInOutQuad);
+		playerCamera.RotateTo(player.transform.rotation.eulerAngles,cameraRotateTime,lastTime + cameraRotateTime,EaseType.easeInOutQuad);
 		player.GetComponent<CharacterMovement>().EnableFrame(info.getInfo());
 	}
 
