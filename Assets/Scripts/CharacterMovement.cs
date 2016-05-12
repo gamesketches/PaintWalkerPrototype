@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CharacterMovement : MonoBehaviour {
 
@@ -35,12 +36,11 @@ public class CharacterMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(Input.GetKeyDown(KeyCode.R)) {
+			SceneManager.LoadScene(0);
+		}
 		if(!onboarding) {
-			if(titleScreen.enabled && Input.GetAxis("Jump") != 0) {
-				StartCoroutine(FadeOutTitleScreen());
-				otherCamera.enabled = true;
-				onboarding = true;
-			}
+
 			float vertical = Input.GetAxis("Vertical");
 			Vector3 moveVector = (vertical * Camera.main.transform.forward * Time.deltaTime * 2f + Physics.gravity);
 			controller.Move(moveVector + jumpVector);
@@ -58,7 +58,12 @@ public class CharacterMovement : MonoBehaviour {
 					jumpVector.y -= 1f * Time.deltaTime;
 				}
 			}
-
+			if(titleScreen.enabled && Input.GetAxis("Jump") != 0) {
+				StartCoroutine(FadeOutTitleScreen());
+				otherCamera.enabled = true;
+				onboarding = true;
+				jumpVector.y = 0;
+			}
 			Ray theRay = new Ray(Camera.main.transform.position, Vector3.up * 100f);
 			RaycastHit hit;
 
@@ -134,7 +139,9 @@ public class CharacterMovement : MonoBehaviour {
 		frame.GetComponentInChildren<Text>().color = textColor;
 		frame.enabled = false;
 		frame.GetComponentInChildren<Text>().text = "";
-		GetComponent<MeshRenderer>().enabled = true;
+		MeshRenderer renderer = GetComponent<MeshRenderer>();
+		renderer.enabled = true;
+		renderer.material.color = Color.white;
 		RawImage[] controls = GetComponentsInChildren<RawImage>();
 		controls[0].enabled = true;
 		controls[1].enabled = true;

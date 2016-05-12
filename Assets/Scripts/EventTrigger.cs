@@ -19,7 +19,7 @@ public class EventTrigger : MonoBehaviour {
 
 	void CameraMoveUp(){
 		Vector3 raisePos = player.transform.position + Vector3.up * 30;
-		Vector3 rotateAngle = new Vector3(90,180,0);
+		Vector3 rotateAngle = new Vector3(90,0,0);
 		playerCamera.MoveTo(raisePos, cameraRaiseTime, 0, EaseType.easeInOutQuad);
 		playerCamera.RotateTo(rotateAngle,cameraRotateTime, 0, EaseType.easeInOutQuad);
 		playerCamera.MoveTo(player.transform.position, cameraRaiseTime, lastTime + cameraRaiseTime, EaseType.easeInOutQuad);
