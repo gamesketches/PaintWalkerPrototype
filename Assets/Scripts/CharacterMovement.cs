@@ -31,6 +31,8 @@ public class CharacterMovement : MonoBehaviour {
 		//}
 		//fogOfWarMesh.colors = colors;
 		frame.enabled = false;
+		titleScreen.enabled = false;
+		titleScreenBackground.enabled = false;
 		Debug.Log(frame.enabled);
 	}
 	
@@ -58,12 +60,12 @@ public class CharacterMovement : MonoBehaviour {
 					jumpVector.y -= 1f * Time.deltaTime;
 				}
 			}
-			if(titleScreen.enabled && Input.GetAxis("Jump") != 0) {
+			/*if(titleScreen.enabled && Input.GetAxis("Jump") != 0) {
 				StartCoroutine(FadeOutTitleScreen());
 				otherCamera.enabled = true;
 				onboarding = true;
 				jumpVector.y = 0;
-			}
+			}*/
 			Ray theRay = new Ray(Camera.main.transform.position, Vector3.up * 100f);
 			RaycastHit hit;
 
