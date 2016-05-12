@@ -29,12 +29,14 @@ public class EventTrigger : MonoBehaviour {
 
 	void DeleteGameObject(){
 		player.GetComponent<CharacterMovement>().enabled = true;
+		player.GetComponent<CharacterMovement>().otherCamera.enabled = true;
 		player.GetComponent<CharacterMovement>().DisableFrame();
 		ChangeColor();
 	}
 
 	void OnTriggerEnter(Collider col){
 		CameraMoveUp();
+		player.GetComponent<CharacterMovement>().otherCamera.enabled = false;
 		player.GetComponent<CharacterMovement>().enabled = false;
 		hideObject(0.0f);
 		Invoke("DeleteGameObject",cameraRotateTime + lastTime + cameraRotateTime);

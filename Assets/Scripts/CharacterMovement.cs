@@ -105,6 +105,7 @@ public class CharacterMovement : MonoBehaviour {
 	public void EnableFrame(string info){
 		frame.enabled = true;
 		frame.GetComponentInChildren<Text>().text = info;
+		frame.GetComponentsInChildren<Text>()[1].text = "Sunflowers";
 		GetComponent<MeshRenderer>().enabled = false;
 		RawImage[] controls = GetComponentsInChildren<RawImage>();
 		controls[0].enabled = false;
@@ -116,15 +117,20 @@ public class CharacterMovement : MonoBehaviour {
 	IEnumerator FadeOutFrame() {
 		float t = 0;
 		Text text = frame.GetComponentInChildren<Text>();
+		Text headerText = frame.GetComponentsInChildren<Text>()[1];
 		Color startColor = frame.color;
 		Color textColor = text.color;
 		Color fadedColor = frame.color;
 		Color fadedTextColor = text.color;
+		Color headerTextColor = headerText.color;
+		Color fadedHeaderTextColor = headerText.color;
 		fadedColor.a = 0;
 		fadedTextColor.a = 0;
+		fadedHeaderTextColor.a = 0;
 		while(t < 1f) {
 			frame.color = Color.Lerp(startColor, fadedColor, t);
 			text.color = Color.Lerp(textColor, fadedTextColor, t);
+			headerText.color = Color.Lerp(headerTextColor, fadedHeaderTextColor, t);
 			t += Time.deltaTime * 0.1f;
 			yield return null;
 		}
@@ -139,6 +145,7 @@ public class CharacterMovement : MonoBehaviour {
 		frame.GetComponentInChildren<Text>().color = textColor;
 		frame.enabled = false;
 		frame.GetComponentInChildren<Text>().text = "";
+		frame.GetComponentsInChildren<Text>()[1].text = "";
 		MeshRenderer renderer = GetComponent<MeshRenderer>();
 		renderer.enabled = true;
 		renderer.material.color = Color.white;
