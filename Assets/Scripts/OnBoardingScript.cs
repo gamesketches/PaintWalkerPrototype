@@ -55,7 +55,7 @@ public class OnBoardingScript : MonoBehaviour {
 			StartCoroutine(FadeInControls(moveImage));
 			StartCoroutine(FadeInControls(jumpImage));
 			StartCoroutine(FadeInControls(glideImage));	
-			Invoke("BeginControlFadeOut", 60.0f);
+			Invoke("BeginControlFadeOut", 45.0f);
 		}
 	}
 
@@ -68,18 +68,18 @@ public class OnBoardingScript : MonoBehaviour {
 			targetColor.a = 1f;
 			while(t < 1f && !controlsFaded) {
 				image.color = Color.Lerp(fadedColor, targetColor, t);
-				t += 1f / 8f * Time.deltaTime;
+				t += 1f / 9f * Time.deltaTime;
 				yield return null;
 			}
 		}
-		GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterMovement>().enabled = true;
 		foreach(GameObject waypoint in waypoints){
 			waypoint.SetActive(true);
 		}
 		GameObject player = GameObject.FindWithTag("Player");
 		CharacterMovement playerMovementScript = player.GetComponent<CharacterMovement>();
 		playerMovementScript.onboarding = false;
-		player.GetComponent<MeshRenderer>().enabled = true;
+		//player.GetComponent<MeshRenderer>().enabled = true;
+		GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterMovement>().enabled = true;
 	}
 
 	IEnumerator FadeOutControls(RawImage image) {

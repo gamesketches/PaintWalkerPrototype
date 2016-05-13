@@ -69,17 +69,6 @@ public class CharacterMovement : MonoBehaviour {
 
 			if(Physics.Raycast(theRay, out hit)) {
 				hit.collider.gameObject.GetComponent<Renderer>().material.color = new Color(0f, 0f, 0f, 0f);
-/*			Debug.Log(fogOfWarMesh.vertices.Length);
-			Debug.Log(hit.triangleIndex);
-			Debug.Log(fogOfWarMesh.vertices[fogOfWarMesh.triangles[hit.triangleIndex]]);
-			Transform hitTransform = hit.collider.transform;
-			fogOfWarMesh.colors[fogOfWarMesh.triangles[hit.triangleIndex]].a = 0f;
-			Color[] colorArray = fogOfWarMesh.colors;
-			colorArray[fogOfWarMesh.triangles[hit.triangleIndex]] = new Color(0f, 0f, 0f, 0f);
-			fogOfWarMesh.colors = colorArray;
-			Debug.Log(fogOfWarMesh.colors[fogOfWarMesh.triangles[hit.triangleIndex]]);
-			Vector3 hitPoint = hitTransform.TransformPoint(fogOfWarMesh.vertices[fogOfWarMesh.triangles[hit.triangleIndex]]);
-			Debug.Log(hitPoint);*/
 			}
 		}
 	}
