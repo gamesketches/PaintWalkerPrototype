@@ -99,7 +99,7 @@ public class CharacterMovement : MonoBehaviour {
 		RawImage[] controls = GetComponentsInChildren<RawImage>();
 		controls[0].enabled = false;
 		controls[1].enabled = false;
-		controls[2].enabled = false;
+		//controls[2].enabled = false;
 		StartCoroutine(FadeOutFrame());
 	}
 
@@ -144,6 +144,6 @@ public class CharacterMovement : MonoBehaviour {
 		RawImage[] controls = GetComponentsInChildren<RawImage>();
 		controls[0].enabled = true;
 		controls[1].enabled = true;
-		controls[2].enabled = true;
+		//controls[2].enabled = true;
 	}
 }
