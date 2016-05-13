@@ -40,7 +40,7 @@ public class OnBoardingScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetKeyDown(KeyCode.Space) && !started) {
+		if(Input.GetAxis("Jump") != 0f && !started) {
 			music.Play();
 			playerCamera.MoveTo(firstTarget, 9.5f, 0, EaseType.easeInOutQuad);
 			playerCamera.RotateTo(targetRotation, 10f, 2f, EaseType.easeInOutQuad);
