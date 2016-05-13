@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.VR;
 using UnityEngine.SceneManagement;
 
 public class CharacterMovement : MonoBehaviour {
@@ -21,6 +22,7 @@ public class CharacterMovement : MonoBehaviour {
 		onboarding = false;
 		otherCamera.enabled = false;
 		jumpVector = Vector3.zero;
+		VRSettings.renderScale = 0.5f;
 //		rb = GetComponent<Rigidbody>();
 		controller = GetComponent<CharacterController>();
 		//Color meshColor = fogOfWar.GetComponent<Renderer>().material.color;
