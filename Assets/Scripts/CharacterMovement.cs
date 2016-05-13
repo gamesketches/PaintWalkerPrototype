@@ -130,8 +130,11 @@ public class CharacterMovement : MonoBehaviour {
 		frameColor.a = 1;
 		frame.color = frameColor;
 		Color textColor = frame.GetComponentInChildren<Text>().color;
+		Color headerTextColor = frame.GetComponentsInChildren<Text>()[1].color;
+		headerTextColor.a = 1;
 		textColor.a = 1;
 		frame.GetComponentInChildren<Text>().color = textColor;
+		frame.GetComponentsInChildren<Text>()[1].color = headerTextColor;
 		frame.enabled = false;
 		frame.GetComponentInChildren<Text>().text = "";
 		frame.GetComponentsInChildren<Text>()[1].text = "";
