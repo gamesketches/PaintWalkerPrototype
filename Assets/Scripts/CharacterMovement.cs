@@ -19,6 +19,7 @@ public class CharacterMovement : MonoBehaviour {
 	public bool onboarding;
 	// Use this for initialization
 	void Start () {
+		GetComponentInChildren<AudioSource>().Play();
 		onboarding = false;
 		otherCamera.enabled = false;
 		jumpVector = Vector3.zero;
@@ -51,11 +52,11 @@ public class CharacterMovement : MonoBehaviour {
 			if(Input.GetAxis("Horizontal") != 0) {
 				transform.Rotate(0f, Input.GetAxis("Horizontal") * Time.deltaTime * 100.0f, 0f);
 			}
-			if(Input.GetKeyDown(KeyCode.Space) && controller.isGrounded) {
+			if(Input.GetAxis("Jump") != 0f && controller.isGrounded) {
 				jumpVector.y = jumpSpeed;
 			}
 			if(!controller.isGrounded) {
-				if(Input.GetKey(KeyCode.Space) && jumpVector.y < Mathf.Abs(Physics.gravity.y)) {
+				if(Input.GetAxis("Jump") != 0f && jumpVector.y < Mathf.Abs(Physics.gravity.y)) {
 					jumpVector.y = 9.79f;
 				}
 				else {

@@ -19,6 +19,7 @@ public class OnBoardingScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		music = GetComponent<AudioSource>();
+		music.Play();
 		started = false;
 		controlsFaded = false;
 		GameObject player = GameObject.FindWithTag("Player");
