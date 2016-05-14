@@ -26,7 +26,6 @@ public class OnBoardingScript : MonoBehaviour {
 		playerCamera = player.transform.FindChild("Main Camera").gameObject;
 		player.GetComponent<MeshRenderer>().enabled = false;
 		targetPosition = gameObject.transform.parent.transform.position;
-		//targetPosition.y += 0.3f;
 		targetRotation = gameObject.transform.parent.transform.rotation.eulerAngles;
 		targetRotation.x += 20.0f;
 		firstTarget = firstObject.transform.position;
@@ -45,7 +44,6 @@ public class OnBoardingScript : MonoBehaviour {
 			playerCamera.MoveTo(firstTarget, 9.5f, 0, EaseType.easeInOutQuad);
 			playerCamera.RotateTo(targetRotation, 10f, 2f, EaseType.easeInOutQuad);
 			started = true;
-			GameObject player = GameObject.FindWithTag("Player");
 		}
 		if(gameObject.transform.position == firstTarget) {
 			playerCamera.MoveTo(targetPosition, 9f, 0f, EaseType.easeInOutQuad);
@@ -78,7 +76,6 @@ public class OnBoardingScript : MonoBehaviour {
 		GameObject player = GameObject.FindWithTag("Player");
 		CharacterMovement playerMovementScript = player.GetComponent<CharacterMovement>();
 		playerMovementScript.onboarding = false;
-		//player.GetComponent<MeshRenderer>().enabled = true;
 		GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterMovement>().enabled = true;
 	}
 

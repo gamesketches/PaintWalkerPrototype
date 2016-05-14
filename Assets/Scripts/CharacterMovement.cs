@@ -9,7 +9,6 @@ public class CharacterMovement : MonoBehaviour {
 
 	public float jumpSpeed = 20.0f;
 	public GameObject fogOfWar;
-	//private Mesh fogOfWarMesh;
 	private Vector3 jumpVector;
 	public RawImage frame;
 	public RawImage titleScreen;
@@ -21,17 +20,8 @@ public class CharacterMovement : MonoBehaviour {
 		onboarding = false;
 		otherCamera.enabled = false;
 		jumpVector = Vector3.zero;
-//		rb = GetComponent<Rigidbody>();
 		controller = GetComponent<CharacterController>();
-		//Color meshColor = fogOfWar.GetComponent<Renderer>().material.color;
-		//fogOfWarMesh = fogOfWar.GetComponent<MeshCollider>().sharedMesh;
-		//Color[] colors = new Color[fogOfWarMesh.vertexCount];
-		//for(int i = 0; i < fogOfWarMesh.vertexCount; i++) {
-		//	colors[i] = meshColor;
-		//}
-		//fogOfWarMesh.colors = colors;
 		frame.enabled = false;
-		Debug.Log(frame.enabled);
 	}
 	
 	// Update is called once per frame
@@ -59,8 +49,6 @@ public class CharacterMovement : MonoBehaviour {
 				}
 			}
 			if(titleScreen.enabled && Input.GetAxis("Jump") != 0f && !onboarding) {
-
-				Debug.Log(Input.GetAxis("Jump"));
 				StartCoroutine(FadeOutTitleScreen());
 				otherCamera.enabled = true;
 				onboarding = true;
@@ -101,27 +89,31 @@ public class CharacterMovement : MonoBehaviour {
 		RawImage[] controls = GetComponentsInChildren<RawImage>();
 		controls[0].enabled = false;
 		controls[1].enabled = false;
-		//controls[2].enabled = false;
 		StartCoroutine(FadeOutFrame());
 	}
 
 	IEnumerator FadeOutFrame() {
 		float t = 0;
-		Text text = frame.GetComponentInChildren<Text>();
-		Text headerText = frame.GetComponentsInChildren<Text>()[1];
+		foreach(Text text in frame.GetComponentsInChildren<Text>()){
+			StartCoroutine(FadeOutTextElement(text));
+		}
 		Color startColor = frame.color;
-		Color textColor = text.color;
 		Color fadedColor = frame.color;
-		Color fadedTextColor = text.color;
-		Color headerTextColor = headerText.color;
-		Color fadedHeaderTextColor = headerText.color;
 		fadedColor.a = 0;
-		fadedTextColor.a = 0;
-		fadedHeaderTextColor.a = 0;
 		while(t < 1f) {
 			frame.color = Color.Lerp(startColor, fadedColor, t);
-			text.color = Color.Lerp(textColor, fadedTextColor, t);
-			headerText.color = Color.Lerp(headerTextColor, fadedHeaderTextColor, t);
+			t += Time.deltaTime * 0.1f;
+			yield return null;
+		}
+	}
+
+	IEnumerator FadeOutTextElement(Text theText) {
+		Color startColor = theText.color;
+		Color fadedColor = startColor;
+		fadedColor.a = 0;
+		float t = 0;
+		while(t < 1f) {
+			theText.color = Color.Lerp(startColor, fadedColor, t);
 			t += Time.deltaTime * 0.1f;
 			yield return null;
 		}
@@ -131,21 +123,18 @@ public class CharacterMovement : MonoBehaviour {
 		Color frameColor = frame.color;
 		frameColor.a = 1;
 		frame.color = frameColor;
-		Color textColor = frame.GetComponentInChildren<Text>().color;
-		Color headerTextColor = frame.GetComponentsInChildren<Text>()[1].color;
-		headerTextColor.a = 1;
-		textColor.a = 1;
-		frame.GetComponentInChildren<Text>().color = textColor;
-		frame.GetComponentsInChildren<Text>()[1].color = headerTextColor;
+		foreach(Text text in frame.GetComponentsInChildren<Text>()) {
+			Color tempColor = text.color;
+			tempColor.a = 1;
+			text.color = tempColor;
+			text.text = "";
+		}
 		frame.enabled = false;
-		frame.GetComponentInChildren<Text>().text = "";
-		frame.GetComponentsInChildren<Text>()[1].text = "";
 		MeshRenderer renderer = GetComponent<MeshRenderer>();
 		renderer.enabled = true;
 		renderer.material.color = Color.white;
 		RawImage[] controls = GetComponentsInChildren<RawImage>();
 		controls[0].enabled = true;
 		controls[1].enabled = true;
-		//controls[2].enabled = true;
 	}
 }
