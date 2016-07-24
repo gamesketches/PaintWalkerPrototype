@@ -27,17 +27,19 @@ public class EventTrigger : MonoBehaviour {
 		player.GetComponent<CharacterMovement>().EnableFrame(info.getInfo());
 	}
 
-	void DeleteGameObject(){
+	void ReturnControl(){
 		player.GetComponent<CharacterMovement>().enabled = true;
+		player.GetComponent<CharacterMovement>().otherCamera.enabled = true;
 		player.GetComponent<CharacterMovement>().DisableFrame();
 		ChangeColor();
 	}
 
 	void OnTriggerEnter(Collider col){
 		CameraMoveUp();
+		player.GetComponent<CharacterMovement>().otherCamera.enabled = false;
 		player.GetComponent<CharacterMovement>().enabled = false;
 		hideObject(0.0f);
-		Invoke("DeleteGameObject",cameraRotateTime + lastTime + cameraRotateTime);
+		Invoke("ReturnControl", cameraRotateTime + lastTime + cameraRotateTime);
 	}
 
 	IEnumerator CheckInput() {
@@ -45,7 +47,7 @@ public class EventTrigger : MonoBehaviour {
 			&& Input.GetAxis("Jump") == 0f) {
 			yield return null;
 		}
-		DeleteGameObject();
+		ReturnControl();
 	}
 
 	void ChangeColor() {
